@@ -101,13 +101,14 @@ int main(int argc, char** argv)
     printf("Android magic found at: %d\n", i);
 
     fread(&header, sizeof(header), 1, f);
-    printf("BOARD_KERNEL_CMDLINE := %s\n", header.cmdline);
+    printf("# Kernel information");
     printf("BOARD_KERNEL_BASE := 0x%08x\n", header.kernel_addr - 0x00008000);
-    printf("BOARD_KERNEL_PAGESIZE := %d\n", header.page_size);
-    printf("BOARD_FORCE_RAMDISK_ADDRESS := 0x%08x\n", header.ramdisk_addr);
-    printf("    or for build trees using Android 4.2 or newer,\n");
-    printf("    replace the BOARD_FORCE_RAMDISK_ADDRESS with:\n");
+    printf("BOARD_KERNEL_CMDLINE := %s\n", header.cmdline);
     printf("BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x%08x\n", header.ramdisk_addr - (header.kernel_addr - 0x00008000));
+    printf("BOARD_KERNEL_PAGESIZE := %d\n", header.page_size);
+    printf(" ");
+    printf(" ");
+    printf("Be sure to look at a similar device for [--tags_offset] (SomeNumber) to complete BOARD_MKBOOTIMG_ARGS if the device needs it..");
     if (header.second_size != 0) {
         printf("\nImage has a second ramdisk:\n");
         printf("Second ramdisk size is 0x%08x\n", header.second_size);
